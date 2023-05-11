@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body{
-    overflow: hidden;
+body,html{
+    overflow-x: hidden;
 }
 
 a.active::before{
@@ -27,40 +27,55 @@ a.active{
     left: 0;
     top: 0;
     background-color: white;
-    margin: 0 !important;
+
     transition: all 0.3s ease-out;
 }
 .nav {
     position: absolute;
     width: 100%;
     height: 100vh;
-    left: -1000px;
+    left:-100%;
     top: 0;
     background-color: white;
     z-index: 2;
     transition: all 0.3s ease-out;
+    display: none;
+    margin: 0 !important;
+    z-index: 20;
     
+
+}
+
+@media (max-width:991px){
+    .nav{
+        display: block;
+    }
 }
 
 .cart {
     position: absolute;
     width: 100%;
     height: 100vh;
-    right: -600px;
+    right: -100%;
     top: 0;
     background-color: white;
     z-index: 2;
     transition: all 0.3s ease-out;
+    border-left: 2px solid black;
+    z-index: 20;
+
 }
 .cart.open{
-    position: absolute;
-    width: 100%;
-    height: 100vh;
     right: 0;
     top: 0;
     background-color: white;
     margin: 0 !important;
     transition: all 0.3s ease-out;
+}
+@media (min-width:767px){
+    .cart.open{
+        width: 400px;
+    }
 }
 input:focus-visible{
     outline: none ;
@@ -81,10 +96,16 @@ input:focus-visible{
     gap: 20px;
     font-size: 20px;
     transition: all 0.3s ease-out;
+    border-bottom: 2px solid black;
+    z-index: 20;
 }
 .search.open{
     top: 0;
 }
 .search input{
     width: 100%;
+}
+
+.fix{
+    margin-left: 0 !important;
 }

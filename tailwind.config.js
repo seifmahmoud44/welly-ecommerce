@@ -7,6 +7,10 @@ module.exports = {
         logo: "'Pacifico', cursive",
         body: "'Cairo', sans-serif",
       },
+      colors: {
+        "dark-green": "#73B74C",
+        "light-green": "#97CB10",
+      },
     },
   },
   plugins: [],
