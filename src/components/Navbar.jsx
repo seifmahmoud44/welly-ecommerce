@@ -8,6 +8,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import "../index";
+import CartMenu from "./CartMenu";
 
 const Navbar = () => {
   const navClasses =
@@ -21,12 +22,14 @@ const Navbar = () => {
     setOpenNav(false);
     setOpenSearch(false);
   };
-
   useEffect(() => {
-    openCart || openNav || openSearch
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflowX = "hidden");
-  }, [openSearch, openNav, openCart]);
+    //stop scrolling
+    if (openCart || openSearch || openNav) {
+      document.getElementsByTagName("html")[0].style.overflowY = "hidden";
+    } else {
+      document.getElementsByTagName("html")[0].style.overflowY = "auto";
+    }
+  }, [openCart, openSearch, openNav]);
   return (
     <>
       {openCart || openNav || openSearch ? (
@@ -171,7 +174,7 @@ const Navbar = () => {
                 className="absolute top-4 right-4 text-xl hover:scale-125 transition-all cursor-pointer "
                 onClick={() => setOpenCart(false)}
               />
-              <h1 className="p-4 text-2xl">YOUR CART</h1>
+              <CartMenu />
             </div>
           </div>
         </div>
