@@ -9,8 +9,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import "../index";
 import CartMenu from "./CartMenu";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const cart = useSelector((state) => state.shopSlice.cart);
+  const wish = useSelector((state) => state.shopSlice.wishList);
   const navClasses =
     "max-[991px]:hidden  transition-all font-bold relative  before:absolute before:h-1 before:w-full before:bg-green-500 before:bottom-0 before:-left-16 overflow-hidden hover:before:-left-0 before:transition-all";
   const navigate = useNavigate();
@@ -21,6 +24,11 @@ const Navbar = () => {
     setOpenCart(false);
     setOpenNav(false);
     setOpenSearch(false);
+  };
+  const close = (close) => {
+    if (close === false) {
+      setOpenCart(false);
+    }
   };
   useEffect(() => {
     //stop scrolling
@@ -59,7 +67,7 @@ const Navbar = () => {
             />
             <div className=" max-[991px]:hidden flex justify-center items-center relative">
               <div className="w-4 h-4 absolute text-sm p-2.5 -top-3 -right-3 bg-black  text-white rounded-full z-0 flex justify-center items-center">
-                <span className="">0</span>
+                <span className="">{wish.length}</span>
               </div>
               <BsHeart className="cursor-pointer hover:scale-125 transition-all text-xl relative z-1" />
             </div>
@@ -117,7 +125,7 @@ const Navbar = () => {
                     <h1>Wish List</h1>
                     <div className="  flex justify-center items-center relative">
                       <div className="w-4 h-4 absolute text-sm p-2.5 -top-3 -right-3 bg-black  text-white rounded-full z-0 flex justify-center items-center">
-                        <span className="">0</span>
+                        <span className="">{wish.length}</span>
                       </div>
                       <BsHeart className="cursor-pointer hover:scale-125 transition-all text-xl relative z-1" />
                     </div>
@@ -161,7 +169,7 @@ const Navbar = () => {
 
             <div className="flex justify-center items-center relative">
               <div className="w-4 h-4 absolute text-sm p-2.5 -top-3 -right-3 bg-black  text-white rounded-full z-0 flex justify-center items-center">
-                <span className="">0</span>
+                <span className="">{cart.length}</span>
               </div>
               <HiOutlineShoppingCart
                 className=" cursor-pointer text-xl relative z-1 hover:scale-125 transition-all"
@@ -174,7 +182,7 @@ const Navbar = () => {
                 className="absolute top-4 right-4 text-xl hover:scale-125 transition-all cursor-pointer "
                 onClick={() => setOpenCart(false)}
               />
-              <CartMenu />
+              <CartMenu close={close} />
             </div>
           </div>
         </div>
