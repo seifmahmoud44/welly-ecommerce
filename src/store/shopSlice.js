@@ -1,7 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = { products: [], cart: [], wishList: [], cartTotal: 0 };
+const initialState = {
+  products: [],
+  cart: [],
+  wishList: [],
+  cartTotal: 0,
+  filterdProducts: [],
+};
 
 export const getProducts = createAsyncThunk(
   "getProducts",
@@ -50,6 +56,15 @@ export const shopSlice = createSlice({
         return (state.cartTotal = total + itemTotal);
       }, 0);
     },
+    addFilterd: (state, action) => {
+      state.filterdProducts.push(...action.payload);
+    },
+    removeFilterd: (state, action) => {
+      const re = state.filterdProducts.filter(
+        (item) => item.category !== action.payload
+      );
+      state.filterdProducts = re;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
@@ -67,4 +82,7 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   cartTotal,
+  addFilterd,
+  removeFilterd,
+  priceFilter,
 } = shopSlice.actions;
