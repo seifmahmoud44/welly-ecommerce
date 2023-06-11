@@ -69,7 +69,10 @@ const Navbar = () => {
               <div className="w-4 h-4 absolute text-sm p-2.5 -top-3 -right-3 bg-black  text-white rounded-full z-0 flex justify-center items-center">
                 <span className="">{wish.length}</span>
               </div>
-              <BsHeart className="cursor-pointer hover:scale-125 transition-all text-xl relative z-1" />
+              <BsHeart
+                onClick={() => navigate("/wish")}
+                className="cursor-pointer hover:scale-125 transition-all text-xl relative z-1"
+              />
             </div>
             {/* menu */}
             <div
@@ -120,7 +123,11 @@ const Navbar = () => {
                 >
                   FAQS
                 </NavLink>
-                <NavLink to={"/wishlist"}>
+                <NavLink
+                  to={"/wish"}
+                  className={"block"}
+                  onClick={() => setOpenNav(false)}
+                >
                   <div className="p-3 flex space-x-6 items-center  hover:bg-gray-200 cursor-pointer">
                     <h1>Wish List</h1>
                     <div className="  flex justify-center items-center relative">

@@ -13,6 +13,8 @@ import Checkout from "./pages/Checkout";
 import Cart from "./pages/Cart";
 import { store } from "./store/store";
 import Faqs from "./pages/Faqs";
+import ProductDetails from "./pages/ProductDetails";
+import WishList from "./pages/WishList";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "faqs",
         element: <Faqs />,
+      },
+      {
+        path: "product/:id",
+        element: <ProductDetails />,
+      },
+      {
+        path: "wish",
+        element: <WishList />,
       },
     ],
   },

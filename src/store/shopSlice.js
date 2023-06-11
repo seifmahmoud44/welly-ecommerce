@@ -7,6 +7,7 @@ const initialState = {
   wishList: [],
   cartTotal: 0,
   filterdProducts: [],
+  selectedProduct: {},
 };
 
 export const getProducts = createAsyncThunk(
@@ -47,7 +48,10 @@ export const shopSlice = createSlice({
         undefined && state.wishList.push(action.payload);
     },
     removeWish: (state, action) => {
-      state.wishList.filter((product) => product.id !== action.payload.id);
+      const re = state.wishList.filter(
+        (product) => product.id !== action.payload.id
+      );
+      state.wishList = re;
     },
     cartTotal: (state) => {
       state.cart.reduce((total, item) => {
@@ -64,6 +68,12 @@ export const shopSlice = createSlice({
         (item) => item.category !== action.payload
       );
       state.filterdProducts = re;
+    },
+    addSelectedProduct: (state, action) => {
+      const product = state.products.products.find(
+        (product) => product.id === action.payload
+      );
+      state.selectedProduct = product;
     },
   },
   extraReducers: (builder) => {
@@ -85,4 +95,5 @@ export const {
   addFilterd,
   removeFilterd,
   priceFilter,
+  addSelectedProduct,
 } = shopSlice.actions;
