@@ -36,7 +36,7 @@ const CartMenu = ({ close }) => {
     <>
       <div className="px-4 flex flex-col justify-between h-full">
         <div className="h-1/8">
-          <h1 className="p-4 text-2xl border-b-2 mb-3">YOUR CART</h1>
+          <h1 className="p-4 text-2xl border-b-2 pb-3">YOUR CART</h1>
           <div
             className={` relative overflow-hidden rounded-full h-2 w-full bg-slate-300 ${width} before:h-full before:z-10 before:absolute before:top-0 before:left-0 before:bg-dark-green `}
           ></div>
@@ -116,7 +116,7 @@ const CartMenu = ({ close }) => {
         )}
 
         {/* cart footer */}
-        <div className="p-3 border-t h-1/8">
+        <div className="p-3 border-t ">
           <div className="flex justify-between items-center">
             <h1 className="font-bold">TOTAL</h1>
             <h1 className="font-bold">{`$ ${totalPrice} USD`}</h1>

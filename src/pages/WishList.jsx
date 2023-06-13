@@ -9,13 +9,13 @@ const WishList = () => {
   const wishList = useSelector((state) => state.shopSlice.wishList);
   const dispatch = useDispatch();
   return (
-    <div className="vh-cart">
+    <div className="vh-cart flex items-center flex-col h-96 mt-10">
       <h1 className="text-center font-body font-bold text-4xl my-5">
         YOUR WISH LIST
       </h1>
 
       {wishList.length === 0 ? (
-        <div className="h-full text-center ">
+        <div className=" text-center ">
           <h1>Your Wish List Is Empty</h1>
           <Link
             to={"/shop"}

@@ -5,11 +5,12 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import "../index";
 import CartMenu from "./CartMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addSelectedProduct } from "../store/shopSlice";
 
 const Navbar = () => {
   const cart = useSelector((state) => state.shopSlice.cart);
@@ -20,6 +21,14 @@ const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const products = useSelector((state) => state.shopSlice.products.products);
+  const dispatch = useDispatch();
+
+  const wow =
+    products &&
+    products.filter((product) => product.title.includes(searchValue));
+
   const henderMenu = () => {
     setOpenCart(false);
     setOpenNav(false);
@@ -47,16 +56,51 @@ const Navbar = () => {
         ></div>
       ) : null}
       <div className="w-full font-body relative shadow-md">
-        <div className={openSearch ? "search open" : "search"}>
+        <div
+          className={openSearch ? "search open relative" : "search relative"}
+        >
           <input
             type="text"
             placeholder="Search"
             className="rounded-lg border p-2 border-black"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
           <AiOutlineClose
             onClick={() => setOpenSearch(false)}
             className="cursor-pointer hover:scale-125 transition-all"
           />
+          {/* search menu */}
+          {openSearch && searchValue && (
+            <div className="absolute bg-white top-[130%] left-5  max-h-60 rounded-md overflow-y-auto p-2">
+              {wow.length === 0 ? (
+                <div>Product Not Found !</div>
+              ) : (
+                products
+                  .filter((product) => product.title.includes(searchValue))
+                  .map((p) => {
+                    return (
+                      <div
+                        className="flex space-x-4 mb-4 hover:bg-slate-300 rounded-md cursor-pointer"
+                        onClick={() => {
+                          dispatch(addSelectedProduct(p.id));
+                          navigate(`/product/${p.id}`);
+                          setSearchValue("");
+                          setOpenSearch(false);
+                        }}
+                      >
+                        <img
+                          src={p.thumbnail}
+                          alt=""
+                          className="w-20 object-contain"
+                        />
+                        <div>{p.title}</div>
+                      </div>
+                    );
+                  })
+              )}
+            </div>
+          )}
         </div>
         <div className="w-4/5 h-20 m-auto max-[767px]:w-full max-[767px]:pr-5 flex justify-between items-center space-x-11">
           {/*left side*/}
@@ -166,9 +210,9 @@ const Navbar = () => {
           </div>
           {/*right side*/}
           <div className="flex justify-between items-center space-x-3">
-            <NavLink className={"max-[991px]:hidden"} to={"/signin"}>
+            <Link className={"max-[991px]:hidden"} href="/#" re>
               <FaRegUserCircle className="cursor-pointer text-xl hover:scale-125 transition-all" />
-            </NavLink>
+            </Link>
             <BsSearch
               onClick={() => setOpenSearch(true)}
               className="cursor-pointer text-xl max-[991px]:block hover:scale-125 transition-all min-[992px]:hidden"
